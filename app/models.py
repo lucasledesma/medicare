@@ -3,6 +3,16 @@ from typing import (
     Deque, Dict, FrozenSet, List, Optional, Sequence, Set, Tuple, Union
 )
 
+class MedicareData(BaseModel):
+    #id: int
+    #provider_id: int
+    hcpcs_code: int
+
+    class Config:
+        orm_mode = True
+        allow_population_by_field_name = True
+
+
 class Provider(BaseModel):
     id: int = Field(alias='National Provider Identifier')    
     lastname: Optional[str] = Field(alias='Last Name/Organization Name of the Provider')   
@@ -19,8 +29,10 @@ class Provider(BaseModel):
     country_code: Optional[str] = Field(alias="Country Code of the Provider")
     provider_type: Optional[str] = Field(alias="Provider Type")
     medicare_participation_indicator:Optional[str] = Field(alias= "Medicare Participation Indicator")
-   # hcpcs_code:List[Optional[str]] = Field(alias= "HCPCS Code" )
+    #hcpcs_code:List[Optional[str]] = Field(alias= "HCPCS Code" )
+    medicaredata: List[MedicareData]
 
     class Config:
         orm_mode = True
         allow_population_by_field_name = True
+

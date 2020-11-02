@@ -10,5 +10,5 @@ async def get_providers(skip: int = 0, take: int = 20):
 async def get_provider(provider_id: int):
     session = Session()
     result=session.query(ProviderTable).first()
-    print(jsonable_encoder(result.medicaredata))
+    #print(jsonable_encoder(result.medicaredata))
     return result

@@ -139,5 +139,3 @@ cython_debug/
 
 .vscode
 
-data/test.db
-data/medicare.db

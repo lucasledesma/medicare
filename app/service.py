@@ -6,5 +6,5 @@ async def get_providers_all(skip: int, take: int):
     return result
 
 async def get_provider_by_id(provider_id: int):
-    result = Session().query(ProviderTable).first()
+    result = Session().query(ProviderTable).filter(ProviderTable.id==provider_id).first()
     return result

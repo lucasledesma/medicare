@@ -7,7 +7,7 @@ def get_settings():
 
 class Settings(BaseSettings):
     app_name: str = "Middlecare API"
-    database_url: str = "sqlite:///./data/test.db"
+    database_url: str = "sqlite:///./data/medicare.db"
 
     class Config:
         env_file = ".env"

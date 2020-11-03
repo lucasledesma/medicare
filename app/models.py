@@ -19,6 +19,7 @@ class MedicareData(BaseModel):
     class Config:
         orm_mode = True
         allow_population_by_field_name = True
+        validate_all = True
 
 
 class Provider(BaseModel):
@@ -41,4 +42,5 @@ class Provider(BaseModel):
     class Config:
         orm_mode = True
         allow_population_by_field_name = True
+        validate_all = True
 

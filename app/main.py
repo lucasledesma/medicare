@@ -1,12 +1,12 @@
 
 from fastapi import FastAPI,Depends
 from pydantic import BaseModel
-from db import database
-from controller import router
+from .db import database
+from .providers import router
 from fastapi.middleware.cors import CORSMiddleware
-import config
+from .config import get_settings
 
-app = FastAPI(title = config.get_settings().app_name)
+app = FastAPI(title = get_settings().app_name)
 
 app.include_router(
     router,
@@ -24,7 +24,7 @@ async def shutdown():
 @app.get("/info")
 async def info():
     return {
-        "app_name": config.get_settings().app_name,
+        "app_name": get_settings().app_name,
     }    
  
 

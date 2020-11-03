@@ -1,10 +1,10 @@
-from .db import ProviderTable,Session
-from sqlalchemy.sql import select
+from sqlalchemy.orm import Session
+from .models import ProviderTable
 
-async def get_providers_all(skip: int, take: int):
-    result = Session().query(ProviderTable).offset(skip).limit(take).all()
+async def get_providers_all(db: Session, skip: int, take: int):
+    result = db.query(ProviderTable).offset(skip).limit(take).all()
     return result
 
-async def get_provider_by_id(provider_id: int):
-    result = Session().query(ProviderTable).filter(ProviderTable.id==provider_id).first()
+async def get_provider_by_id(db: Session, provider_id: int):
+    result = db.query(ProviderTable).filter(ProviderTable.id==provider_id).first()
     return result

@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  medicare:
+    build: .
+    ports:
+      - "8000:80"
+    volumes:
+      - ./data:/data

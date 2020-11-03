@@ -4,9 +4,17 @@ from typing import (
 )
 
 class MedicareData(BaseModel):
-    #id: int
-    #provider_id: int
-    hcpcs_code: int
+    medicare_participation_indicator: Optional[str]
+    hcpcs_code: Optional[str]
+    hcpcs_description: Optional[str]
+    hcpcs_drug_indicator: Optional[str]
+    number_of_services: Optional[int]
+    number_of_medicare_beneficiaries: Optional[int]
+    number_of_distinct_medicare_beneficiary_per_day_services: Optional[int]
+    average_Medicare_allowed_amount: Optional[float]
+    average_submitted_charge_amount: Optional[float]
+    average_medicare_payment_amount: Optional[float]
+    average_medicare_standardized_amount: Optional[float]
 
     class Config:
         orm_mode = True
@@ -28,8 +36,6 @@ class Provider(BaseModel):
     state_code:Optional[str] = Field(alias= "State Code of the Provider")
     country_code: Optional[str] = Field(alias="Country Code of the Provider")
     provider_type: Optional[str] = Field(alias="Provider Type")
-    medicare_participation_indicator:Optional[str] = Field(alias= "Medicare Participation Indicator")
-    #hcpcs_code:List[Optional[str]] = Field(alias= "HCPCS Code" )
     medicaredata: List[MedicareData]
 
     class Config:

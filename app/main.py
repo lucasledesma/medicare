@@ -1,11 +1,12 @@
 
-from fastapi import FastAPI
+from fastapi import FastAPI,Depends
 from pydantic import BaseModel
 from db import database
 from controller import router
 from fastapi.middleware.cors import CORSMiddleware
+import config
 
-app = FastAPI(title = "Medicare")
+app = FastAPI(title = config.get_settings().app_name)
 
 app.include_router(
     router,
@@ -20,5 +21,10 @@ async def startup():
 async def shutdown():
     await database.disconnect()    
 
+@app.get("/info")
+async def info():
+    return {
+        "app_name": config.get_settings().app_name,
+    }    
  
 

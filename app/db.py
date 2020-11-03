@@ -4,9 +4,10 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker
+import config
 
 Base = declarative_base()
-DATABASE_URL = "sqlite:///../data/test.db"
+DATABASE_URL = config.get_settings().database_url
 database = databases.Database(DATABASE_URL)
 metadata = MetaData()
 

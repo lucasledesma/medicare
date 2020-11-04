@@ -16,7 +16,7 @@ migration_nro = cursor.fetchone()[0]
 if migration_nro < 1 :
     print("MIGRATION 1: Inserting csv data into tmp table... ")
     medicaredata = pd.read_csv(
-        "D:\\Users\\lucas\\Downloads\\Medicare_Provider_Utilization_and_Payment_Data__Physician_and_Other_Supplier_PUF_CY2017.csv")
+        "./data/data.csv")
     medicaredata.to_sql('tmp', conn)
     cursor.execute("insert into migrations(id, description) values (1, 'Inserting csv data into tmp table');")
     conn.commit()

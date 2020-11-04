@@ -105,7 +105,6 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
 .venv
 env/
 venv/
@@ -141,3 +140,5 @@ cython_debug/
 
 data/test.db
 data/medicare.db
+data/data.csv
+data/data.fetched

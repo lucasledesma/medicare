@@ -15,6 +15,7 @@ jobs:
       - run:
           command: |
             pytest --version
+            pytest -vv
           name: Test
 orbs:
   python: circleci/python@1.2.1

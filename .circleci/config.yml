@@ -2,7 +2,7 @@ version: 2.1
 
 description: |
   Standardized Python build for CircleCI
-
+ 
 orbs:
   anchore: anchore/anchore-engine@1.6.0
 references:

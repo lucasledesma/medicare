@@ -1,3 +1,6 @@
+[![lucasledesma](https://circleci.com/gh/lucasledesma/medicare.svg?style=svg&circle-token=	7b83526a5c4cccab4003d4135fff4b9b97f77486)](https://app.circleci.com/pipelines/github/lucasledesma/medicare)
+
+
 # Medicare API
 
 Yes! Finally I am learning python... 

@@ -16,7 +16,6 @@ jobs:
           name: Test
           command: |
             pytest --version
-            pytest -vv
             pytest --junitxml=test-results/junit.xml
 
       - store_test_results:

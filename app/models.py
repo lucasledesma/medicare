@@ -1,46 +1,39 @@
-from pydantic import BaseModel, Field
-from typing import (
-    Deque, Dict, FrozenSet, List, Optional, Sequence, Set, Tuple, Union
-)
+from sqlalchemy import Column, ForeignKey, Integer, String, Float
+from sqlalchemy.orm import relationship
 
-class MedicareData(BaseModel):
-    medicare_participation_indicator: Optional[str]
-    hcpcs_code: Optional[str]
-    hcpcs_description: Optional[str]
-    hcpcs_drug_indicator: Optional[str]
-    number_of_services: Optional[int]
-    number_of_medicare_beneficiaries: Optional[int]
-    number_of_distinct_medicare_beneficiary_per_day_services: Optional[int]
-    average_Medicare_allowed_amount: Optional[float]
-    average_submitted_charge_amount: Optional[float]
-    average_medicare_payment_amount: Optional[float]
-    average_medicare_standardized_amount: Optional[float]
+from .database import Base
 
-    class Config:
-        orm_mode = True
-        allow_population_by_field_name = True
-        validate_all = True
+class ProviderTable(Base):
+    __tablename__ = 'providers'
+    id = Column(name="id", type_=Integer, primary_key=True)
+    lastname = Column(name="lastname", type_=String)
+    firstname = Column(name="firstname", type_=String)
+    middle_initial = Column(name="middle_initial", type_=String)
+    credentials = Column(name="credentials" , type_=String)
+    gender = Column(name="gender" , type_=String)
+    entity_type = Column(name="entity_type" , type_=String)
+    street_address_1 = Column(name='street_address_1', type_=String)
+    street_address_2 = Column(name="street_address_2" , type_=String)
+    city = Column(name="city" , type_=String)
+    zip_code = Column(name="zip_code" , type_=String)
+    state_code = Column(name="state_code" , type_=String)
+    country_code = Column(name="country_code" , type_=String)
+    provider_type = Column(name="provider_type" , type_=String)
+    medicaredata = relationship("MedicareDataTable")
 
-
-class Provider(BaseModel):
-    id: int = Field(alias='National Provider Identifier')    
-    lastname: Optional[str] = Field(alias='Last Name/Organization Name of the Provider')   
-    firstname: Optional[str] = Field(alias='First Name of the Provider') 
-    middle_initial: Optional[str] = Field(alias='Middle Initial of the Provider')
-    credentials: Optional[str] = Field(alias="Credentials of the Provider")
-    gender: Optional[str] = Field(alias="Gender of the Provider")
-    entity_type: Optional[str] = Field(alias="Entity Type of the Provider")
-    street_address_1: Optional[str] = Field(alias='Street Address 1 of the Provider')
-    street_address_2:Optional[str] = Field(alias="Street Address 2 of the Provider")
-    city: Optional[str] = Field(alias="City of the Provider")
-    zip_code: Optional[str] = Field(alias="Zip Code of the Provider")
-    state_code:Optional[str] = Field(alias= "State Code of the Provider")
-    country_code: Optional[str] = Field(alias="Country Code of the Provider")
-    provider_type: Optional[str] = Field(alias="Provider Type")
-    medicaredata: List[MedicareData]
-
-    class Config:
-        orm_mode = True
-        allow_population_by_field_name = True
-        validate_all = True
+class MedicareDataTable(Base):
+    __tablename__ = 'medicare_data'
+    id =  Column(name="id", type_=Integer, primary_key=True)
+    provider_id = Column(Integer, ForeignKey(ProviderTable.id))
+    medicare_participation_indicator = Column(name="medicare_participation_indicator", type_=String)    
+    hcpcs_code = Column(name="hcpcs_code", type_=String)
+    hcpcs_description = Column(name="hcpcs_description", type_= String)
+    hcpcs_drug_indicator = Column(name="hcpcs_drug_indicator", type_=String)
+    number_of_services= Column(name="number_of_services", type_=Integer)
+    number_of_medicare_beneficiaries=Column(name="number_of_medicare_beneficiaries", type_=Integer)
+    number_of_distinct_medicare_beneficiary_per_day_services=Column(name="number_of_distinct_medicare_beneficiary_per_day_services", type_=Integer)
+    average_Medicare_allowed_amount = Column(name="average_Medicare_allowed_amount", type_=Float)
+    average_submitted_charge_amount = Column(name="average_submitted_charge_amount", type_=Float)
+    average_medicare_payment_amount = Column(name="average_medicare_payment_amount", type_=Float)
+    average_medicare_standardized_amount = Column(name="average_medicare_standardized_amount", type_=Float)    
 

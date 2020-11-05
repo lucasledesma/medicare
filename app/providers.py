@@ -1,19 +1,29 @@
 from typing import List
-from fastapi import status, APIRouter, HTTPException, Response, status
-from starlette.status import HTTP_404_NOT_FOUND
-from .models import Provider
-from .service import get_providers_all, get_provider_by_id
+from fastapi import status, APIRouter, HTTPException, status, Depends
+from .schemas import Provider
+from . import service
+from sqlalchemy.orm import Session
+from .database import SessionLocal
 
 router = APIRouter()
 
-@router.get("/", response_model=List[Provider], status_code = status.HTTP_200_OK)
-async def get_providers(skip: int = 0, take: int = 20):
-    return await get_providers_all(skip,take)    
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
-@router.get("/{provider_id}/",response_model=Provider,status_code = status.HTTP_200_OK)
-async def get_provider(provider_id: int, response:Response):
-    result = await get_provider_by_id(provider_id)
+@router.get("/", response_model=List[Provider], status_code=status.HTTP_200_OK)
+async def get_providers(skip: int = 0, take: int = 20, db: Session = Depends(get_db)):
+    return await service.get_providers_all(db, skip, take)
+
+
+@router.get("/{provider_id}/", response_model=Provider, status_code=status.HTTP_200_OK)
+async def get_provider(provider_id: int, db: Session = Depends(get_db)):
+    result = await service.get_provider_by_id(db, provider_id)
     if result is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Provider not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Provider not found")
     else:
-        return  result
+        return result

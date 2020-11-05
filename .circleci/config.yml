@@ -13,10 +13,18 @@ jobs:
           pkg-manager: pip
           pypi-cache: false
       - run:
+          name: Test
           command: |
             pytest --version
             pytest -vv
-          name: Test
+            pytest --junitxml=test-results/junit.xml
+
+      - store_test_results:
+          path: test-results
+
+      - store_artifacts:
+          path: test-results
+          
 orbs:
   python: circleci/python@1.2.1
 version: 2.1

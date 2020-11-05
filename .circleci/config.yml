@@ -1,40 +1,25 @@
-version: 2.1
-
-description: |
-  Standardized Python build for CircleCI
- 
-orbs:
-  anchore: anchore/anchore-engine@1.6.0
-references:
-  requirements_txt: &requirements_txt
-    description: Name of the requirements.txt file
-    type: string
-    default: "requirements.txt"
-  parameters:
-    python_version: &python_version
-      description: Version of the CircleCI Python docker image to use
-      type: string
-      default: "3.7"
-  cache_key: &cache_key
-    key: deps-{{ .Branch }}-{{ checksum "<<parameters.requirements_txt>>" }}
 jobs:
-  test:
-    parameters:
-      requirements_txt: *requirements_txt
-      python_version: *python_version
-    executor:
-      name: python_executor
-      python_version: <<parameters.python_version>>
+  build:
+    executor: python/default
     steps:
       - checkout
-      - restore_cache: *cache_key
+      - python/install-packages:
+          pkg-manager: pip
+      - python/install-packages:
+          pip-dependency-file: dev-requirements.txt
+          pkg-manager: pip
+      - python/install-packages:
+          args: pytest
+          pkg-manager: pip
+          pypi-cache: false
       - run:
           command: |
-            virtualenv venv
-            . venv/bin/activate
-            pip install --progress-bar off --use-feature=2020-resolver -r <<parameters.requirements_txt>> 
-            python -m unittest discover
-      - save_cache:
-          <<: *cache_key
-          paths:
-            - "venv"
+            pytest --version
+          name: Test
+orbs:
+  python: circleci/python@1.2.1
+version: 2.1
+workflows:
+  main:
+    jobs:
+      - build

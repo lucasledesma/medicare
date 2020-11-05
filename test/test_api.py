@@ -3,9 +3,6 @@ from app import main
 import logging
 from test_data import provider_1003000126, provider_1003000407, provider_1003000134
 
-
-LOGGER = logging.getLogger(__name__)
-
 client = TestClient(main.app)
 
 def test_get_first_provider():
@@ -13,20 +10,19 @@ def test_get_first_provider():
     assert response.status_code == 200
     assert response.json() == [ provider_1003000126 ]
 
-def test_get_second_provider():
-    response = client.get("/providers?skip=1&take=1")
-    assert response.status_code == 200
-    assert response.json() == [ provider_1003000134 ]    
+# def test_get_second_provider():
+#     response = client.get("/providers?skip=1&take=1")
+#     assert response.status_code == 200
+#     assert response.json() == [ provider_1003000134 ]    
 
-def test_get_first_and_second_providers():
-    response = client.get("/providers?skip=0&take=2")
-    assert response.status_code == 200
-    assert response.json() == [ provider_1003000126,provider_1003000134 ]  
+# def test_get_first_and_second_providers():
+#     response = client.get("/providers?skip=0&take=2")
+#     assert response.status_code == 200
+#     assert response.json() == [ provider_1003000126,provider_1003000134 ]  
 
 def test_get_provider_1003000126():
     response = client.get("/providers/1003000126")
     assert response.status_code == 200
-    LOGGER.info(response.json())
     assert response.json() == provider_1003000126
 
 def test_get_provider_1003000407():

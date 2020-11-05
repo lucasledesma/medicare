@@ -22,4 +22,4 @@ class Settings(BaseSettings):
     environment: str = os.environ.get('ENV')
 
     class Config:
-        env_file = ".env." + os.environ.get('ENV')
+        env_file = "./app/.env." + os.environ.get('ENV')

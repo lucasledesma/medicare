@@ -7,22 +7,17 @@ Yes! Finally I am learning python...
 
 ## Content
 
-* [First things first](#first-things-first)
-* [How to run in local environment](#how-to-run-in-local-environment)
+* [How to run](#how-to-run)
 * [How to run using docker-compose](#how-to-run-using-docker-compose)
 * [How to run using docker](#how-to-run-using-docker)
 * [How to execute test cases](#how-to-execute-test-cases)
 
-## First things first
+## How to run 
 
-Let's get the data!
+You have two options depending on your preferences and your environment:
 
-You basically have two options depending on your preferences :)
-
-1. 
-2. 
-
-## How to run in local environment
+1. Using docker-compose
+2. Using make
 
 In the root of the project type:
 

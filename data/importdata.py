@@ -4,11 +4,11 @@ import pandas as pd
 import sys
 import os.path
 
-environments = ['development', 'test', 'production']
+environments = ['development', 'production']
 environment = os.environ.get('ENV')
 
 if not environment in environments: 
-    print("*** ENV is undefined. Please export ENV as one of the following 'development' 'test' 'production'.  Stop.")    
+    print("*** ENV is undefined. Please export ENV as one of the following 'development' 'production'.  Stop.")    
     exit(1)
 else:
     databasename = "./data/" + environment + ".db"

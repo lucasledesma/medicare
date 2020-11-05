@@ -27,5 +27,6 @@ app.include_router(
 async def info():
     return {
         "app_name": get_settings().app_name,
+        "environment": get_settings().environment,
     }
 

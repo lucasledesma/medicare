@@ -4,7 +4,7 @@ FROM base as builder
 RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
 RUN mkdir /install
 WORKDIR /install
-COPY ./app/requirements.txt /requirements.txt
+COPY ./requirements.txt /requirements.txt
 RUN pip install --prefix=/install -r /requirements.txt
 
 FROM base

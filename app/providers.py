@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from fastapi import status, APIRouter, HTTPException, status, Depends
 from .schemas import Provider
 from . import service
@@ -7,6 +7,7 @@ from .database import SessionLocal
 
 router = APIRouter()
 
+
 def get_db():
     db = SessionLocal()
     try:
@@ -14,9 +15,15 @@ def get_db():
     finally:
         db.close()
 
+
 @router.get("/", response_model=List[Provider], status_code=status.HTTP_200_OK)
-async def get_providers(skip: int = 0, take: int = 20, db: Session = Depends(get_db)):
-    return await service.get_providers_all(db, skip, take)
+async def get_providers(skip: int = 0, take: int = 20,
+                        firstname: Optional[str] = None,
+                        lastname: Optional[str] = None,
+                        hcpcs_code: Optional[str] = None,
+                        searchQuery: Optional[str] = None,
+                        db: Session = Depends(get_db)):
+    return await service.get_providers_all(db, skip, take, firstname, lastname, hcpcs_code,searchQuery)
 
 
 @router.get("/{provider_id}/", response_model=Provider, status_code=status.HTTP_200_OK)

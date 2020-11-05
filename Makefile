@@ -1,10 +1,17 @@
 .PHONY: run
-run: venv getdata importdata
+run: venv check-env getdata importdata
 	$(VENV)/uvicorn --port 8000 --host 127.0.0.1 app.main:app --reload
+
+.PHONY: check-env
+check-env:
+ifndef ENV
+	$(error ENV is undefined. Please export ENV as one of the following 'development' 'test' 'production')
+endif
 
 .PHONY: getdata
 getdata:
 ifeq (,$(wildcard ./data/data.csv))
+	@echo "Downloading data. This may take a while if it is the first time, please be patient..."
 	curl -o ./data/data.fetched \
 		-L "https://data.cms.gov/api/views/fs4p-t5eq/rows.csv?accessType=DOWNLOAD" \
 	echo "39f90a3a04764a203cdae884cab635e3e0e8bb5e26fb95607308a0bc9d29492e *data/data.fetched" \
@@ -15,6 +22,10 @@ endif
 .PHONY: importdata
 importdata:
 	$(VENV)/python ./data/importdata.py
+
+.PHONY: downloaddb
+downloaddb:
+	@echo "Preparing db. This may take a while if it is the first time, please be patient..."	
 
 include Makefile.venv
 Makefile.venv:

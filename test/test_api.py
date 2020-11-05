@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 from app import main
 import logging
-from test_data import provider_1003000126, provider_1003000407, provider_1003000142, provider_1003000134
+from test_data import provider_1003000126, provider_1003000407, provider_1003000134
 
 LOGGER = logging.getLogger(__name__)
 

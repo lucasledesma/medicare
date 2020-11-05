@@ -7,16 +7,12 @@ from .database import SessionLocal
 
 router = APIRouter()
 
-# Dependency
-
-
 def get_db():
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
-
 
 @router.get("/", response_model=List[Provider], status_code=status.HTTP_200_OK)
 async def get_providers(skip: int = 0, take: int = 20, db: Session = Depends(get_db)):

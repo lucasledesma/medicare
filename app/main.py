@@ -1,16 +1,22 @@
 
-from fastapi import FastAPI
-from .database import engine
-from .providers import router
+from fastapi import FastAPI,Depends
+from .database import engine,SessionLocal
 from .config import get_settings
+from .init import init_db
+import logging
+from .providers import router
 from . import models
+import os
 
 models.Base.metadata.create_all(bind=engine)
+
 
 app = FastAPI(
     title=get_settings().app_name,
     description="This API provides access to Medicare Providers Payment and Utilization Data"
 )
+
+logger = logging.getLogger("uvicorn.error")
 
 app.include_router(
     router,
@@ -22,3 +28,4 @@ async def info():
     return {
         "app_name": get_settings().app_name,
     }
+

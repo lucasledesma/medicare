@@ -9,5 +9,6 @@ RUN pip install --prefix=/install -r /requirements.txt
 
 FROM base
 COPY --from=builder /install /usr/local
-COPY ./app /app
+COPY . /app
+CMD ["python","app/importdata.py"]
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]

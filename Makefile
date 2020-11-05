@@ -24,7 +24,7 @@ endif
 
 .PHONY: importdata
 importdata:
-	$(VENV)/python ./data/importdata.py
+	$(VENV)/python ./app/importdata.py
 
 .PHONY: downloaddb
 downloaddb:

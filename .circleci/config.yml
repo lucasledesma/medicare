@@ -6,7 +6,7 @@ jobs:
       - python/install-packages:
           pkg-manager: pip
       - python/install-packages:
-          pip-dependency-file: requirements.txt
+          pip-dependency-file: app/requirements.txt
           pkg-manager: pip
       - python/install-packages:
           args: pytest

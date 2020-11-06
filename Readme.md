@@ -9,7 +9,7 @@
 * [Set the environment variable ENV](#set-the-environment-variable-env)
 * [How to run the code](#how-to-run)
 * [How to execute test cases](#how-to-execute-test-cases)
-* [CI] (#ci)
+* [CI](#ci)
 * [WTF metric](#wtf-metric)
 * [Things to keep learning](#things-to-keep-learning)
 

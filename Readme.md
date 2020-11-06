@@ -91,18 +91,21 @@ Run
 
 ```pytest```
 
-Automated test cases are important not just to test the functionality but also for refactoring. During this exercise having test cases allowed me nit just to find bugs in the original implementation, but also to spot issues caused by changes.
+Automated test cases are important not just to test the functionality but also for refactoring. During this exercise having test cases allowed me not just to find bugs in the original implementation, but also to spot issues caused by changes.
 
 ## CI
 
-I am very used to do CI/CD with go, react, c#. "Build once, deploy the same everywhere"
-However, it is the first time I work with an interpreted language, thus no build is needed. Still I need to have something to validate every push, thus I created a quick pipeline at least to run the tests for every commit. That gives my confidence.
+I am very used to do CI/CD with go, react, c#. "Build once, deploy the same wau everywhere".
+
+However, it is the first time I work with an interpreted language, thus no build is needed. Still I need to have something to validate every push, thus I created a quick pipeline at least to run the tests for every commit. That gives me confidence.
+
+See build badge at the top of this page.
 
 ## WTF metric
 
 I am sure you are familiarized with the [WTF metric](http://reviewthecode.blogspot.com/2016/01/wtf-per-minute-actual-measurement-for.html#:~:text=WTF%20Per%20Minute%20%2D%20An%20Actual%20Measurement%20for%20Code%20Quality,-Cars%20have%20MPH&text=The%20better%20the%20car%20the,per%20minute%2C%20aka%20code%20quality) for code quality.
 
-I have to say that while viewing the code you will have lot of WTF. The explanation is simple, this was a quick exercise to learn a new language, so no much time invested.
+I have to say that while taking a look at the code you will have lots of WTF. The explanation is simple, this was a quick exercise to learn a new language, so no much time invested.
 
 Some WTFs you may say:
 

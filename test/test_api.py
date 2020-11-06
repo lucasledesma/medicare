@@ -38,6 +38,24 @@ def test_get_firstname_contains_B_providers():
     for provider in json.loads(response.text):
         assert provider["First Name of the Provider"].find("B") > -1
 
+def test_get_lastname_and_firstname_contain_A_providers():
+    response = client.get("/providers?skip=0&take=20&lastname=A&firstname=A")
+    assert response.status_code == 200
+    for provider in json.loads(response.text):
+        assert provider["Last Name/Organization Name of the Provider"].find("A") > -1
+        assert provider["First Name of the Provider"].find("A") > -1
+
+def test_get_hcpcs_code():
+    response = client.get("/providers?skip=0&take=20&hcpcs_code=64491")
+    assert response.status_code == 200
+    for provider in json.loads(response.text):
+        correct_code = False
+        for record in provider["medicaredata"]:
+            print(provider["First Name of the Provider"],record["Hcpcs code"])
+            if record["Hcpcs code"]=="64491":
+                correct_code = True
+        assert correct_code == True  
+
 def test_get_provider_1003000126():
     response = client.get("/providers/1003000126")
     assert response.status_code == 200

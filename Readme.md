@@ -13,8 +13,6 @@
 * [WTF metric](#wtf-metric)
 * [Things to keep learning](#things-to-keep-learning)
 
-***
-
 ## Some thoughts
 
 Yes! Finally I am learning python... 

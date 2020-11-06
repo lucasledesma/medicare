@@ -7,7 +7,7 @@
 * [Some thoughts](#some-thoughts)
 * [Get the code](#Get-the-code)
 * [Set the environment variable ENV](#set-the-environment-variable-env)
-* [How to run the code](#how-to-run)
+* [How to run the code](#how-to-run-the-code)
 * [How to execute test cases](#how-to-execute-test-cases)
 * [CI](#ci)
 * [WTF metric](#wtf-metric)

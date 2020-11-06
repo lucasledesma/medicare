@@ -21,9 +21,8 @@ async def get_providers(skip: int = 0, take: int = 20,
                         firstname: Optional[str] = None,
                         lastname: Optional[str] = None,
                         hcpcs_code: Optional[str] = None,
-                        searchQuery: Optional[str] = None,
                         db: Session = Depends(get_db)):
-    return await service.get_providers_all(db, skip, take, firstname, lastname, hcpcs_code,searchQuery)
+    return await service.get_providers_all(db, skip, take, firstname, lastname, hcpcs_code)
 
 
 @router.get("/{provider_id}/", response_model=Provider, status_code=status.HTTP_200_OK)

@@ -4,18 +4,19 @@ import pandas as pd
 import sys
 import os.path
 
-environments = ['development', 'production']
+environments = ['development', 'test', 'production']
 environment = os.environ.get('ENV')
 
 if not environment in environments: 
-    print("*** ENV is undefined. Please export ENV as one of the following 'development' 'production'.  Stop.")    
-    exit(1)
-else:
-    databasename = "./data/" + environment + ".db"
-    nrows=None if environment == 'production' else 1000 
-    print("Environment: ", environment)  
-    print("Databasename: ", databasename)  
-    print("Number of rows=: ", nrows)  
+    print("Invalid environment. Defaulting to 'development' ")    
+    os.environ["ENV"] = "development"
+    environment ='development'
+
+databasename = "./data/" + environment + ".db"
+nrows=None if environment == 'production' else 1000 
+print("Environment: ", environment)  
+print("Databasename: ", databasename)  
+print("Number of rows=: ", nrows)  
 
 conn = sql.connect(databasename)
 
@@ -134,8 +135,10 @@ if migration_nro < 5:
 if migration_nro < 6: 
     print("MIGRATION 6: Creating indexes... ")
     cursor.execute("CREATE INDEX IF NOT EXISTS medicare_provider_id ON medicare_data(provider_id)");
-    cursor.execute("CREATE INDEX IF NOT EXISTS  providers_id ON providers(id)");
-    cursor.execute("insert into migrations(id, description) values (6, 'Populating medicare_data table... ');")
+    cursor.execute("CREATE INDEX IF NOT EXISTS providers_id ON providers(id)");
+    cursor.execute("CREATE INDEX IF NOT EXISTS providers_name ON providers(firstname,lastname)");
+    cursor.execute("CREATE INDEX IF NOT EXISTS medicaredata_provider_hcpcs_code ON medicare_data(provider_id,hcpcs_code)");
+    cursor.execute("insert into migrations(id, description) values (6, 'Creating indexes... ');")
     conn.commit()
     print("MIGRATION 6: Done")  
 

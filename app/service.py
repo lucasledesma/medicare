@@ -1,15 +1,13 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import or_
+from sqlalchemy import or_, and_
 from .models import MedicareDataTable, ProviderTable
+from typing import  Optional
 
-async def get_providers_all(db: Session, skip: int, take: int, firstname: str, lastname: str, hcpcs_code:str, searchQuery: str):
-    result = db.query(ProviderTable).join(MedicareDataTable). filter(
-                or_(ProviderTable.firstname==firstname,firstname is None) &
-                or_(ProviderTable.lastname==lastname,lastname is None) &
-                or_(MedicareDataTable.hcpcs_code=="99217") &
-                or_(ProviderTable.firstname.ilike(f"%{searchQuery}%"),searchQuery is None) &
-                or_(ProviderTable.lastname.ilike(f"%{searchQuery}%"),searchQuery is None)
-            
+async def get_providers_all(db: Session, skip: int, take: int, firstname: Optional[str], lastname: Optional[str], hcpcs_code:Optional[str]):
+    result = db.query(ProviderTable).join(MedicareDataTable).filter(
+                and_((hcpcs_code is None or MedicareDataTable.hcpcs_code==hcpcs_code),
+                (firstname is None or ProviderTable.firstname.like(f"%{firstname}%")),
+                (lastname is None or ProviderTable.lastname.like(f"%{lastname}%")))
             ).offset(skip).limit(take).all()
     return result
 

@@ -16,6 +16,10 @@ getdata:
 importdata:
 	$(VENV)/python ./app/importdata.py
 
+.PHONY: test
+test:	
+	$(VENV)/pytest -s -vv --durations=0
+
 include Makefile.venv
 Makefile.venv:
 	curl \

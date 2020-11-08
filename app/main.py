@@ -16,8 +16,6 @@ app = FastAPI(
     description="This API provides access to Medicare Providers Payment and Utilization Data"
 )
 
-logger = logging.getLogger("uvicorn.error")
-
 app.include_router(
     router,
     prefix="/providers",

@@ -150,4 +150,11 @@ if migration_nro < 7:
     conn.commit()
     print("MIGRATION 7: Done")  
 
+if migration_nro < 8: 
+    print("Create index on hcpcs code... ")
+    cursor.execute("create index if not exists medicare_data_hcpcs_code on medicare_data(hcpcs_code);")
+    cursor.execute("insert into migrations(id, description) values (8, 'Creating index on hcpcs code... ');")
+    conn.commit()
+    print("MIGRATION 8: Done") 
+
 cursor.close()

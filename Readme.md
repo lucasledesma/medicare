@@ -77,17 +77,19 @@ Then you can access swagger in [http://localhost:8000/docs](http://localhost:800
 
 Yet, an easier way to run the code, provided you have make and python installed is to use the ```Makefile``` in the root of the project.
 
-```make```
+```make run``` or just ```make```
 
 Then you can access swagger in [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ## How to execute test cases
 
-In the test directory of the project
+In the root of the project you can do ```make test```
+
+Or, go to the test directory of the project
 
 ```cd test```
 
-Run
+and run
 
 ```pytest```
 

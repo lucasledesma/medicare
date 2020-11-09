@@ -83,6 +83,8 @@ Then you can access swagger in [http://localhost:8000/docs](http://localhost:800
 
 ## How to execute test cases
 
+Note that tests will run out of the box in development environment. However, if you want to run them against the production db, you first need to get the production db, so first run ```make``` or ```make venv check-env getdata importdata```. This will bring the file ```data/production.db```.
+
 In the root of the project you can do ```make test```
 
 Or, go to the test directory of the project

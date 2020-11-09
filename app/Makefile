@@ -16,7 +16,7 @@ endif
 ifeq (${ENV},production)
 	curl -o ../data/${ENV}.fetched \
 		-L "https://www.dropbox.com/s/htv6l0yf4ckf2su/${ENV}.db?dl=0" 
-	echo "fa6bb312be680de7b4b4c0246cca02ab31126927d1ecf9aec23306ac6904d727 *../data/${ENV}.fetched" \
+	echo "c9f0f6621472c901716bba7400a63687d93a1839937f8581b5c1fb5b43699810 *../data/${ENV}.fetched" \
 		| shasum -a 256 --check - \
 		&& mv ../data/${ENV}.fetched ../data/${ENV}.db
 endif

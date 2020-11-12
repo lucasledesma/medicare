@@ -1,5 +1,5 @@
 from typing import List, Optional
-from fastapi import status, APIRouter, HTTPException, status, Depends
+from fastapi import status, APIRouter, HTTPException, status, Depends,Query,Path
 from .schemas import Provider
 from . import service
 from sqlalchemy.orm import Session
@@ -17,7 +17,7 @@ def get_db():
 
 
 @router.get("/", response_model=List[Provider], status_code=status.HTTP_200_OK)
-async def get_providers(skip: int = 0, take: int = 20,
+async def get_providers(skip: int = 0, take: int =  Query(20, le=100, ge=0),
                         firstname: Optional[str] = None,
                         lastname: Optional[str] = None,
                         hcpcs_code: Optional[str] = None,
@@ -26,7 +26,7 @@ async def get_providers(skip: int = 0, take: int = 20,
 
 
 @router.get("/{provider_id}/", response_model=Provider, status_code=status.HTTP_200_OK)
-async def get_provider(provider_id: int, db: Session = Depends(get_db)):
+async def get_provider(provider_id: int = Path(...,ge=0), db: Session = Depends(get_db)):
     result = await service.get_provider_by_id(db, provider_id)
     if result is None:
         raise HTTPException(

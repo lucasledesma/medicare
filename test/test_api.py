@@ -71,6 +71,29 @@ def test_get_hcpcs_code():
         assert correct_code == True
 
 
+def test_get_200_providers():
+    start = time.time()
+    response = client.get("/providers?skip=0&take=200")
+    end = time.time()
+    assert end-start < 1
+    assert response.status_code == 422
+    assert response.json() == {
+        "detail": [
+            {
+                "loc": [
+                    "query",
+                    "take"
+                ],
+                "msg": "ensure this value is less than or equal to 100",
+                "type": "value_error.number.not_le",
+                "ctx": {
+                    "limit_value": 100
+                }
+            }
+        ]
+    }
+
+
 def test_get_provider_1003000126():
     response = client.get("/providers/1003000126")
     assert response.status_code == 200
@@ -94,3 +117,23 @@ def test_invalid_provider():
     assert response.status_code == 422
     assert response.json() == {'detail': [{'loc': [
         'path', 'provider_id'], 'msg': 'value is not a valid integer', 'type': 'type_error.integer'}]}
+
+
+def test_negative_provider():
+    response = client.get("/providers/-1")
+    assert response.status_code == 422
+    assert response.json() == {
+        "detail": [
+            {
+                "loc": [
+                    "path",
+                    "provider_id"
+                ],
+                "msg": "ensure this value is greater than or equal to 0",
+                "type": "value_error.number.not_ge",
+                "ctx": {
+                    "limit_value": 0
+                }
+            }
+        ]
+    }
